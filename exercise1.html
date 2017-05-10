@@ -30,18 +30,27 @@
 </ul>
 
 <script>
-
   // Select all the list items on the page and convert to array
+  const allListItems = Array.from(document.querySelectorAll('[data-time]'));
 
   // Filter for only the elements that contain the word 'flexbox'
-
-  // map down to a list of time strings
-
-  // map to an array of seconds
-
-  // reduce to get total
-
+  const totalTime = allListItems.filter(item => item.innerHTML === 'Flexbox Video')
+    // map down to a list of time strings
+    .map(item => item.attributes['data-time'].nodeValue)
+    // map to an array of seconds
+    .map(time => {
+      const timeParts = time.split(':');
+      return parseInt(timeParts[0]) * 60 + parseInt(timeParts[1])
+    })
+    // reduce to get total
+    .reduce((total, num) => total + num);
+  
   // 🔥 This can also be done in a single .reduce(), but we're practicing arrow functions here, so chain them!
+  
+  const totalMinutes = Math.floor(totalTime/60);
+  const totalSeconds = totalTime % 60;
+
+  console.log("The total time for the Flexbox Videos is--> " + totalMinutes + ":" + totalSeconds)
 
 </script>
 </body>
